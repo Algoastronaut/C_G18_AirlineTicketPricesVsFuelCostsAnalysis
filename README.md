@@ -168,3 +168,72 @@ Tableau Dashboard       → Interactive visualisations, stakeholder-facing insig
 5. **Airline financial margins compress asymmetrically.** EBITDA margins decline faster during fuel spike periods than they recover during fuel price decreases — fares fall more slowly than fuel costs when costs drop.
 
 6. **Regional asymmetry.** Middle Eastern and Asian carriers show lower pass-through rates, potentially due to state subsidy structures. European and North American carriers exhibit higher and faster pass-through rates.
+
+---
+
+## ⚠️ Challenges
+
+| Challenge | Description | Mitigation |
+|-----------|-------------|------------|
+| **Multi-source schema mismatches** | Six raw datasets built independently with inconsistent column naming and date formats | Standardised all column names to `snake_case`; normalised all dates to `YYYY-MM` |
+| **Granularity mismatch** | Oil price data is monthly; financial data is quarterly | Forward-fill to propagate quarterly values across monthly intervals |
+| **Sparse surcharge records** | ~18% of airline–route–month combos lack a matching surcharge | Median imputation by `airline` + `km_range` subgroup |
+| **Geopolitical event alignment** | Conflict events don't align neatly to calendar months | Events tagged to month of onset; multi-month conflicts propagate `conflict_phase` forward |
+| **Outlier vs. legitimate extremes** | COVID-19 and 2022 oil spike are statistical outliers but economically meaningful | Retained with `is_outlier = True` flag; sensitivity analyses run with and without these periods |
+| **Join key complexity (Pair 3)** | Pair 3 merge requires 7 join keys — sensitive to encoding inconsistencies | Applied `.str.strip().str.lower()` normalisation to all string-type join keys before merging |
+
+---
+
+## 🚀 Future Improvements
+
+- **Real-time pipeline:** Integrate live EIA and IATA API feeds using Apache Airflow for monthly auto-updates.
+- **ML forecasting:** Build a time-series model (Prophet, SARIMA, or LSTM) to predict 3–6 month forward ticket prices.
+- **Hedging effectiveness analysis:** Extend financial dataset to include airline-specific hedging ratios.
+- **Consumer welfare analysis:** Incorporate RPK data to quantify total consumer welfare impact of fuel-driven fare increases.
+- **NLP event processing:** Replace manual conflict tagging with an LLM-based news classification pipeline.
+- **Expanded carrier coverage:** Extend analysis to include low-cost and ultra-low-cost carriers (LCCs / ULCCs).
+
+---
+
+## ▶️ How to Run
+
+### Prerequisites
+- Python 3.12+
+- JupyterLab or Jupyter Notebook
+- Tableau Desktop or Tableau Public
+
+### Steps
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/connectwithvanshika/C_G18_AirlineTicketPricesVsFuelCostsAnalysis.git
+cd C_G18_AirlineTicketPricesVsFuelCostsAnalysis
+
+# 2. Create and activate virtual environment
+python -m venv venv
+source venv/bin/activate        # macOS / Linux
+venv\Scripts\activate           # Windows
+
+# 3. Install dependencies
+pip install -r requirements.txt
+
+# 4. Launch JupyterLab
+jupyter lab
+```
+
+Run notebooks in this order from the `notebooks/` directory:
+
+```
+01_extraction.ipynb  →  02_cleaning.ipynb  →  merge_datasets.ipynb
+→  03_eda.ipynb  →  04_statistical_analysis.ipynb  →  05_final_load_prep.ipynb
+```
+
+Connect Tableau to processed CSVs in `data/processed/` for the dashboard.
+
+---
+
+## 👥 Team
+
+**Group 18 — DVA Capstone**
+
+> *For academic use only. All data used is publicly available or constructed for educational purposes.*
