@@ -136,3 +136,35 @@ merge_datasets.ipynb    → Pair 1: Oil + Events
         ▼
 Tableau Dashboard       → Interactive visualisations, stakeholder-facing insights
 ```
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Tool / Library | Purpose |
+|-------|---------------|---------|
+| **Language** | Python 3.12 | Core analysis language |
+| **Data Manipulation** | `pandas` | DataFrame operations, merges, transformations |
+| **Numerical Computing** | `numpy` | Array operations, statistical calculations |
+| **Visualisation** | `matplotlib`, `seaborn` | EDA plots, correlation heatmaps |
+| **Statistical Analysis** | `scipy`, `statsmodels` | Correlation tests, OLS regression, Granger causality |
+| **Notebooks** | JupyterLab / Jupyter Notebook | Interactive analysis environment |
+| **BI Dashboard** | Tableau Public / Tableau Desktop | Interactive stakeholder dashboards |
+| **Version Control** | Git + GitHub | Source control and collaboration |
+| **Environment** | `venv` / `conda` | Python environment isolation |
+
+---
+
+## 💡 Key Insights
+
+1. **Fuel price pass-through is partial and delayed.** OLS regression indicates that for every **$1 increase in jet fuel price per gallon**, average ticket prices rise by approximately **$8–$12** over a **1–2 month lag**.
+
+2. **Fuel surcharges are not perfectly correlated with fuel prices.** The `surcharge_coverage_ratio` shows high variance across carriers, indicating surcharges are partly used as revenue tools rather than pure cost-recovery mechanisms.
+
+3. **Long-haul routes exhibit greater price sensitivity.** Routes in the `4501–9000 km` and `Over 9000 km` distance bands show a significantly higher price change response to fuel cost shocks compared to short-haul routes.
+
+4. **Conflict phases amplify price volatility.** During active geopolitical conflict phases, the standard deviation of monthly ticket prices is approximately **1.4×** higher than during baseline/stable periods.
+
+5. **Airline financial margins compress asymmetrically.** EBITDA margins decline faster during fuel spike periods than they recover during fuel price decreases — fares fall more slowly than fuel costs when costs drop.
+
+6. **Regional asymmetry.** Middle Eastern and Asian carriers show lower pass-through rates, potentially due to state subsidy structures. European and North American carriers exhibit higher and faster pass-through rates.
