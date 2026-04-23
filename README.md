@@ -16,3 +16,43 @@ This project investigates the **quantitative relationship between jet fuel price
 - Whether fuel surcharges are applied systematically or opportunistically.
 - Which routes and carriers are most sensitive to fuel price volatility.
 - How geopolitical disruptions amplify or dampen these price transmission effects.
+
+---
+
+## 🎯 Objectives
+
+| # | Objective |
+|---|-----------|
+| 1 | Quantify the **price pass-through rate** from jet fuel costs to average ticket prices over time. |
+| 2 | Analyse the **structure and timing of fuel surcharges** relative to underlying oil price movements. |
+| 3 | Identify which **airlines, regions, and route types** exhibit the highest sensitivity to fuel price shocks. |
+| 4 | Examine the **financial impact** on airline profitability margins during high fuel-cost periods. |
+| 5 | Assess the role of **geopolitical conflict phases** as a moderating variable in fuel-price–ticket-price dynamics. |
+| 6 | Deliver an **interactive Tableau dashboard** that allows stakeholders to explore these relationships visually. |
+
+---
+
+## 📁 Dataset Description
+
+### Raw Datasets (`data/raw/`)
+
+The project uses **six raw CSV datasets**, assembled from publicly available airline industry databases, commodity price repositories, and geopolitical event archives.
+
+| File | Size | Est. Rows | Est. Columns | Description |
+|------|------|-----------|--------------|-------------|
+| `airline_ticket_prices.csv` | ~2.1 MB | ~18,000 | 14 | Monthly average base fares by airline, route, region, and travel class |
+| `fuel_surcharges.csv` | ~1.3 MB | ~12,000 | 13 | Fuel surcharge amounts per route segment and distance band, by carrier |
+| `oil_jet_fuel_prices.csv` | ~8.6 KB | ~180 | 8 | Monthly Brent crude and jet kerosene spot prices (USD/barrel & USD/gallon) |
+| `airline_financial_impact.csv` | ~110 KB | ~900 | 12 | Quarterly airline-level revenue, COGS, fuel cost share, and EBITDA margin |
+| `route_cost_impact.csv` | ~504 KB | ~7,500 | 11 | Route-level operational cost breakdowns including fuel cost per ASK |
+| `conflict_oil_events.csv` | ~7.4 KB | ~150 | 9 | Timeline of geopolitical events tagged with conflict phase and oil impact level |
+
+### Processed Datasets (`data/processed/`)
+
+After the ETL pipeline runs, the six raw files are merged into **three logically paired processed datasets**:
+
+| File | Est. Rows | Est. Columns | Merge Logic |
+|------|-----------|--------------|-------------|
+| `1_macro_oil_and_events.csv` | ~200 | ~15 | `oil_jet_fuel_prices` ⟕ `conflict_oil_events` on `month` + `conflict_phase` |
+| `2_route_impacts_and_financials.csv` | ~7,500 | ~20 | `route_cost_impact` ⟕ `airline_financial_impact` on `month` + `conflict_phase` + `airline` |
+| `3_ticket_prices_and_surcharges.csv` | ~18,000 | ~25 | `airline_ticket_prices` ⟕ `fuel_surcharges` on `month` + `conflict_phase` + `airline` + `iata_code` + `country` + `region` + `km_range` |
