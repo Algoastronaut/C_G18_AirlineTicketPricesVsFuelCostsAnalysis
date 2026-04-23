@@ -92,3 +92,47 @@ All datasets are stored in `data/raw/` as flat CSVs. A `month` field (`YYYY-MM`)
 - Processed datasets written to `data/processed/` as clean CSVs.
 - Tableau dashboard consumes all three processed CSVs directly.
 - No database backend — all storage is flat-file CSV for reproducibility.
+
+---
+
+## 📓 Notebook-Wise Explanation
+
+| Notebook | Purpose |
+|----------|---------|
+| `01_extraction.ipynb` | Loads all six raw CSVs, validates schemas, checks column names/dtypes, and prints shape/null summaries. Acts as a data audit and ingestion checkpoint. |
+| `02_cleaning.ipynb` | Handles missing values, removes duplicates, standardises column names (snake_case), corrects data types, and applies outlier detection + Winsorisation. |
+| `03_eda.ipynb` | Performs Exploratory Data Analysis on the three processed pairs. Includes distribution plots, correlation heatmaps, time-series trend charts, and carrier/region breakdowns. |
+| `04_statistical_analysis.ipynb` | Applies formal statistical tests: Pearson/Spearman correlation, OLS regression (price pass-through coefficient), Granger causality tests, and ANOVA for cross-airline surcharge differences. |
+| `05_final_load_prep.ipynb` | Final data preparation for Tableau ingestion. Applies remaining transformations, exports clean CSVs, and validates output schemas. |
+| `merge_datasets.ipynb` | Executes all three LEFT JOIN merge operations to produce the three processed datasets from the six raw inputs. Core data integration step. |
+
+---
+
+## 🔁 Workflow
+
+```
+RAW DATA SOURCES  (EIA / IATA / DOT DB1B / ICAO / ACLED)
+        │
+        ▼
+01_extraction.ipynb     → Load CSVs, validate schemas, null/dtype audit
+        │
+        ▼
+02_cleaning.ipynb       → Impute nulls, remove duplicates, standardise dtypes, treat outliers
+        │
+        ▼
+merge_datasets.ipynb    → Pair 1: Oil + Events
+                          Pair 2: Routes + Financials
+                          Pair 3: Tickets + Surcharges  →  data/processed/
+        │
+        ▼
+03_eda.ipynb            → Distributions, correlations, time-series trends, carrier analysis
+        │
+        ▼
+04_statistical_analysis.ipynb  → Correlation, OLS Regression, Granger Causality, ANOVA
+        │
+        ▼
+05_final_load_prep.ipynb  → Final transforms, export clean CSVs, Tableau-ready
+        │
+        ▼
+Tableau Dashboard       → Interactive visualisations, stakeholder-facing insights
+```
