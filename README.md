@@ -56,3 +56,39 @@ After the ETL pipeline runs, the six raw files are merged into **three logically
 | `1_macro_oil_and_events.csv` | ~200 | ~15 | `oil_jet_fuel_prices` ⟕ `conflict_oil_events` on `month` + `conflict_phase` |
 | `2_route_impacts_and_financials.csv` | ~7,500 | ~20 | `route_cost_impact` ⟕ `airline_financial_impact` on `month` + `conflict_phase` + `airline` |
 | `3_ticket_prices_and_surcharges.csv` | ~18,000 | ~25 | `airline_ticket_prices` ⟕ `fuel_surcharges` on `month` + `conflict_phase` + `airline` + `iata_code` + `country` + `region` + `km_range` |
+
+---
+
+## 🔄 ETL Pipeline
+
+The ETL pipeline transforms raw multi-source data into clean, analysis-ready paired datasets. It is implemented across the Jupyter notebooks (01–05) and consolidated in `scripts/etl_pipeline.py`.
+
+### 🔵 Extraction
+
+**Sources:**
+- **Jet fuel & crude oil prices** — U.S. Energy Information Administration (EIA) and IATA Fuel Monitor monthly reports.
+- **Airline ticket prices** — U.S. DOT DB1B and equivalent European CAA datasets, supplemented with aggregated fare data by route.
+- **Fuel surcharges** — individual airline tariff filings, IATA industry bulletins, and publicly disclosed surcharge schedules.
+- **Airline financial data** — ICAO financial data publications and airline investor relations reports (10-K, 20-F).
+- **Route cost data** — ICAO cost-per-ASK (Available Seat Kilometre) statistics and route-level operational data.
+- **Conflict/geopolitical events** — ACLED (Armed Conflict Location & Event Data Project) and Reuters historical archives.
+
+All datasets are stored in `data/raw/` as flat CSVs. A `month` field (`YYYY-MM`) and `conflict_phase` label are the primary join keys across datasets.
+
+### 🟡 Transformation
+
+| Step | Description |
+|------|-------------|
+| Distance band engineering | `avg_route_km` binned into `km_range` (≤1500 / 1501–4500 / 4501–9000 / >9000 km) |
+| Event date normalisation | `event_date` (`YYYY-MM-DD`) truncated to `YYYY-MM` via `str[:7]` |
+| Duplicate column removal | `df.loc[:, ~df.columns.duplicated()]` applied post-merge |
+| Missing value handling | Forward-fill (quarterly→monthly), median imputation (numeric), mode imputation (categorical), row drop (core fields null) |
+| Outlier treatment | IQR detection → Winsorise at 1st/99th percentile → flag with `is_outlier` |
+| Type conversion | `month` → `datetime64[ns]`; monetary fields → `float64`; flags → `bool` |
+| Feature engineering | `year`, `month_num`, `price_change_pct`, `real_ticket_price_usd`, `fuel_price_lag_1m/2m`, `surcharge_coverage_ratio` |
+
+### 🟢 Loading
+
+- Processed datasets written to `data/processed/` as clean CSVs.
+- Tableau dashboard consumes all three processed CSVs directly.
+- No database backend — all storage is flat-file CSV for reproducibility.
