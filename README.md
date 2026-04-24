@@ -1,4 +1,4 @@
-# ✈️ C\_G18 — Airline Ticket Prices vs Fuel Costs Analysis
+# C\_G18 — Airline Ticket Prices vs Fuel Costs Analysis
 
 > **Course:** Data & Visual Analytics (DVA) — Capstone Project
 > **Team:** Group 18
@@ -6,7 +6,7 @@
 
 ---
 
-## 🧩 Problem Statement
+## Problem Statement
 
 Jet fuel is the single largest operating expense for commercial airlines, routinely accounting for **20–30% of total operating costs**. When global crude oil prices spike — often triggered by geopolitical conflicts, OPEC supply decisions, or macroeconomic shocks — airlines must decide whether to absorb these costs, pass them on to passengers via higher base fares or fuel surcharges, or hedge against future price movements.
 
@@ -19,7 +19,7 @@ This project investigates the **quantitative relationship between jet fuel price
 
 ---
 
-## 🎯 Objectives
+## Objectives
 
 | # | Objective |
 |---|-----------|
@@ -32,7 +32,7 @@ This project investigates the **quantitative relationship between jet fuel price
 
 ---
 
-## 📁 Dataset Description
+## Dataset Description
 
 ### Raw Datasets (`data/raw/`)
 
@@ -59,11 +59,11 @@ After the ETL pipeline runs, the six raw files are merged into **three logically
 
 ---
 
-## 🔄 ETL Pipeline
+## ETL Pipeline
 
 The ETL pipeline transforms raw multi-source data into clean, analysis-ready paired datasets. It is implemented across the Jupyter notebooks (01–05) and consolidated in `scripts/etl_pipeline.py`.
 
-### 🔵 Extraction
+### Extraction
 
 **Sources:**
 - **Jet fuel & crude oil prices** — U.S. Energy Information Administration (EIA) and IATA Fuel Monitor monthly reports.
@@ -75,7 +75,7 @@ The ETL pipeline transforms raw multi-source data into clean, analysis-ready pai
 
 All datasets are stored in `data/raw/` as flat CSVs. A `month` field (`YYYY-MM`) and `conflict_phase` label are the primary join keys across datasets.
 
-### 🟡 Transformation
+### Transformation
 
 | Step | Description |
 |------|-------------|
@@ -87,7 +87,7 @@ All datasets are stored in `data/raw/` as flat CSVs. A `month` field (`YYYY-MM`)
 | Type conversion | `month` → `datetime64[ns]`; monetary fields → `float64`; flags → `bool` |
 | Feature engineering | `year`, `month_num`, `price_change_pct`, `real_ticket_price_usd`, `fuel_price_lag_1m/2m`, `surcharge_coverage_ratio` |
 
-### 🟢 Loading
+### Loading
 
 - Processed datasets written to `data/processed/` as clean CSVs.
 - Tableau dashboard consumes all three processed CSVs directly.
@@ -95,7 +95,7 @@ All datasets are stored in `data/raw/` as flat CSVs. A `month` field (`YYYY-MM`)
 
 ---
 
-## 📓 Notebook-Wise Explanation
+## Notebook-Wise Explanation
 
 | Notebook | Purpose |
 |----------|---------|
@@ -108,7 +108,7 @@ All datasets are stored in `data/raw/` as flat CSVs. A `month` field (`YYYY-MM`)
 
 ---
 
-## 🔁 Workflow
+## Workflow
 
 ```
 RAW DATA SOURCES  (EIA / IATA / DOT DB1B / ICAO / ACLED)
@@ -139,7 +139,7 @@ Tableau Dashboard       → Interactive visualisations, stakeholder-facing insig
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Layer | Tool / Library | Purpose |
 |-------|---------------|---------|
@@ -155,7 +155,7 @@ Tableau Dashboard       → Interactive visualisations, stakeholder-facing insig
 
 ---
 
-## 💡 Key Insights
+## Key Insights
 
 1. **Fuel price pass-through is partial and delayed.** OLS regression indicates that for every **$1 increase in jet fuel price per gallon**, average ticket prices rise by approximately **$8–$12** over a **1–2 month lag**.
 
@@ -171,7 +171,7 @@ Tableau Dashboard       → Interactive visualisations, stakeholder-facing insig
 
 ---
 
-## ⚠️ Challenges
+## Challenges
 
 | Challenge | Description | Mitigation |
 |-----------|-------------|------------|
@@ -184,7 +184,7 @@ Tableau Dashboard       → Interactive visualisations, stakeholder-facing insig
 
 ---
 
-## 🚀 Future Improvements
+## Future Improvements
 
 - **Real-time pipeline:** Integrate live EIA and IATA API feeds using Apache Airflow for monthly auto-updates.
 - **ML forecasting:** Build a time-series model (Prophet, SARIMA, or LSTM) to predict 3–6 month forward ticket prices.
@@ -195,7 +195,7 @@ Tableau Dashboard       → Interactive visualisations, stakeholder-facing insig
 
 ---
 
-## ▶️ How to Run
+## How to Run
 
 ### Prerequisites
 - Python 3.12+
@@ -232,7 +232,7 @@ Connect Tableau to processed CSVs in `data/processed/` for the dashboard.
 
 ---
 
-## 👥 Team
+## Team
 
 **Group 18 — DVA Capstone**
 

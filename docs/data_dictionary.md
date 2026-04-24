@@ -1,4 +1,4 @@
-# 📖 Data Dictionary — Airline Ticket Prices vs Fuel Costs Analysis
+# Data Dictionary — Airline Ticket Prices vs Fuel Costs Analysis
 
 > **Project:** C\_G18 — Airline Ticket Prices vs Fuel Costs Analysis
 > **Course:** Data & Visual Analytics (DVA) Capstone
