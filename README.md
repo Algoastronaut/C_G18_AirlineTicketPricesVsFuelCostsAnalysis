@@ -49,6 +49,7 @@ Airline ticket pricing is influenced by fuel costs, but primarily driven by dema
 ├── notebooks/
 │   ├── 01_extraction.ipynb
 │   ├── 02_cleaning.ipynb
+│   ├── merge_datasets.ipynb
 │   ├── 03_eda.ipynb
 │   ├── 04_statistical_analysis.ipynb
 │   └── 05_final_load_prep.ipynb
@@ -175,7 +176,6 @@ Tableau Dashboard       → Interactive visualisations, stakeholder-facing insig
 | **Data Manipulation** | `pandas` | DataFrame operations, merges, transformations |
 | **Numerical Computing** | `numpy` | Array operations, statistical calculations |
 | **Visualisation** | `matplotlib`, `seaborn` | EDA plots, correlation heatmaps |
-| **Statistical Analysis** | `scipy`, `statsmodels` | Correlation tests, OLS regression, Granger causality |
 | **Notebooks** | JupyterLab / Jupyter Notebook | Interactive analysis environment |
 | **BI Dashboard** | Tableau Public / Tableau Desktop | Interactive stakeholder dashboards |
 | **Version Control** | Git + GitHub | Source control and collaboration |
