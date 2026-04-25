@@ -17,6 +17,10 @@ This project investigates the **quantitative relationship between jet fuel price
 - Which routes and carriers are most sensitive to fuel price volatility.
 - How geopolitical disruptions amplify or dampen these price transmission effects.
 
+**⭐ Key Insight**
+
+Airline ticket pricing is influenced by fuel costs, but primarily driven by demand, route characteristics, and geopolitical disruptions rather than direct cost pass-through.
+
 ---
 
 ## Objectives
