@@ -161,6 +161,43 @@
 | `affected_regions` | string | Comma-separated list of regions affected | `Europe, Middle East` | RAW | Narrative context only; not used as join key |
 | `source_url` | string | URL of the primary source documenting the event | `https://...` | RAW | Retained for auditability; excluded from analysis |
 
+### B7. `cleaned_ticket_prices.csv` (Cleaned Dataset)
+
+| Column Name | Description |
+|-------------|-------------|
+| `month` | Year-month of the observation |
+| `conflict_phase` | Geopolitical conflict phase label active during the month |
+| `airline` | Full name of the airline carrier |
+| `iata_code` | 2-letter IATA airline code |
+| `country` | Country of airline registration |
+| `region` | Geographic region of the airline |
+| `airline_type` | Type of airline (e.g. Flag carrier, Low-cost) |
+| `route_class` | Class of route based on distance |
+| `avg_route_km` | Average great-circle distance of the route in km |
+| `base_fare_usd` | Base fare excluding taxes and surcharges in USD |
+| `fuel_surcharge_usd` | Fuel surcharge amount charged per passenger in USD |
+| `taxes_fees_usd` | Government taxes and airport fees per ticket in USD |
+| `total_fare_usd` | Total fare including taxes and fees |
+| `brent_crude_usd` | Monthly average Brent crude oil spot price in USD |
+| `jet_fuel_usd_barrel` | Jet fuel price per barrel in USD |
+| `load_factor_pct` | Percentage of seats filled on the route |
+| `fuel_cost_pct_opex` | Fuel cost as % of total operating cost |
+| `yoy_price_change_pct` | Year-over-year % change in base fare |
+| `km_range` | Distance band derived from `avg_route_km` |
+| `surcharge_band` | Categorical band for surcharge amount |
+| `fuel_surcharge_usd_surcharge_policy` | Surcharge policy type |
+| `surcharge_as_pct_base` | Surcharge as a percentage of base fare |
+| `yoy_surcharge_change_pct` | Year-over-year % change in fuel surcharge |
+| `year` | Calendar year |
+| `month_num` | Calendar month number (1–12) |
+| `quarter` | Quarter of the year |
+| `is_extreme_fare` | Flag indicating if the fare is extreme/outlier |
+| `fuel_surcharge_ratio` | Ratio of fuel surcharge to total fare |
+| `taxes_ratio` | Ratio of taxes to total fare |
+| `base_ratio` | Ratio of base fare to total fare |
+| `crude_jet_ratio` | Ratio of crude oil price to jet fuel price |
+| `fare_per_km` | Total fare per kilometre |
+
 ---
 
 ## Part C — Data Transformation Summary
