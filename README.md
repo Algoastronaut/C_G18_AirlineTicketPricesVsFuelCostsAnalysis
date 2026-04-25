@@ -157,17 +157,10 @@ Tableau Dashboard       → Interactive visualisations, stakeholder-facing insig
 
 ## Key Insights
 
-1. **Fuel price pass-through is partial and delayed.** OLS regression indicates that for every **$1 increase in jet fuel price per gallon**, average ticket prices rise by approximately **$8–$12** over a **1–2 month lag**.
-
-2. **Fuel surcharges are not perfectly correlated with fuel prices.** The `surcharge_coverage_ratio` shows high variance across carriers, indicating surcharges are partly used as revenue tools rather than pure cost-recovery mechanisms.
-
-3. **Long-haul routes exhibit greater price sensitivity.** Routes in the `4501–9000 km` and `Over 9000 km` distance bands show a significantly higher price change response to fuel cost shocks compared to short-haul routes.
-
-4. **Conflict phases amplify price volatility.** During active geopolitical conflict phases, the standard deviation of monthly ticket prices is approximately **1.4×** higher than during baseline/stable periods.
-
-5. **Airline financial margins compress asymmetrically.** EBITDA margins decline faster during fuel spike periods than they recover during fuel price decreases — fares fall more slowly than fuel costs when costs drop.
-
-6. **Regional asymmetry.** Middle Eastern and Asian carriers show lower pass-through rates, potentially due to state subsidy structures. European and North American carriers exhibit higher and faster pass-through rates.
+1. **Impact of Fuel Prices on Fares:** There is a clear positive relationship between fuel prices and ticket prices. When jet fuel and crude oil prices increase, ticket fares also increase. However, the increase is not always immediate, indicating a slight lag effect in price adjustment. OLS regression shows that for every 1 unit increase in fuel price, ticket price increases by ~14.5 units. However, the model explains very little variation (R² ≈ 0.08), so fuel price alone is not a strong predictor.
+2. **Airline Type Performance:** Flag carriers have slightly higher average fares compared to low-cost airlines. Load factor remains almost the same for both airline types (around 70%). Fuel cost impact (OpEx %) is also very similar, showing that both types are equally affected by fuel price changes.
+3. **Fare Distribution Insights:** Most ticket prices are concentrated within a moderate range. During conflict periods and high fuel price phases, extreme fare values increase. This indicates higher price volatility during unstable conditions.
+4. **Overall Pricing Dynamics:** Fuel prices have a significant impact on airline operating costs but only a limited direct impact on ticket prices. Airlines partially pass increased fuel costs to customers through surcharges, but do not fully pass fuel cost increases to customers. Ticket pricing is heavily influenced by a combination of demand fluctuations, market conditions, and external events (such as pandemics and geopolitical conflicts).
 
 ---
 
@@ -235,5 +228,15 @@ Connect Tableau to processed CSVs in `data/processed/` for the dashboard.
 ## Team
 
 **Group 18 — DVA Capstone**
+
+| Role | Team Member Name | GitHub Username |
+|---|---|---|
+| Project Lead | Vanshika Yadav | connectwithvanshika |
+| Data Lead | shrijan sanidhya | ShrijanSanidhya |
+| ETL Lead | Killi Akshith Kumar | Akshith17323 |
+| Analysis Lead | Saumya Soni | Algoastronaut |
+| Visualization Lead | Syed Darain Qamar | darain24 |
+| Strategy Lead | B Mohith venkata sai krishna | mohith0705 |
+| PPT & Quality Lead | Vanshika Yadav | connectwithvanshika |
 
 > *For academic use only. All data used is publicly available or constructed for educational purposes.*
