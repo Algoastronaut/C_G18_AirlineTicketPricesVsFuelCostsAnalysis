@@ -17,7 +17,7 @@ This project investigates the **quantitative relationship between jet fuel price
 - Which routes and carriers are most sensitive to fuel price volatility.
 - How geopolitical disruptions amplify or dampen these price transmission effects.
 
-**⭐ Key Insight**
+** Key Insight**
 
 Airline ticket pricing is influenced by fuel costs, but primarily driven by demand, route characteristics, and geopolitical disruptions rather than direct cost pass-through.
 
@@ -186,7 +186,7 @@ Tableau Dashboard       → Interactive visualisations, stakeholder-facing insig
 ## Tableau Dashboard
 
 Explore the interactive visualizations here:
-🔗 **[View Tableau Public Dashboard](https://public.tableau.com/app/profile/YOUR_PROFILE_LINK)** *(Replace with actual link)*
+🔗 **[View Tableau Public Dashboard](https://public.tableau.com/app/profile/YOUR_PROFILE_LINK)** 
 
 The dashboard provides visual exploration of ticket prices, fuel cost impact, and geopolitical events over time.
 
