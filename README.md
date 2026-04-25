@@ -239,4 +239,17 @@ Connect Tableau to processed CSVs in `data/processed/` for the dashboard.
 | Strategy Lead | B Mohith venkata sai krishna | mohith0705 |
 | PPT & Quality Lead | Vanshika Yadav | connectwithvanshika |
 
+## Contribution Status
+
+| Role                   | Team Member                  | GitHub              | Data | ETL | Analysis | Visualization | Strategy | PPT & Quality |
+| ---------------------- | ---------------------------- | ------------------- | ---- | --- | -------- | ------------- | -------- | ------------- |
+| **Project Lead**       | Vanshika Yadav               | connectwithvanshika | ✔️   | ✔️  | ✔️       | ✔️            | ✔️       | ✔️            |
+| **Data Lead**          | Shrijan Sanidhya             | ShrijanSanidhya     | ✔️   | ❌   | ❌        | ❌             | ✔️       | ❌             |
+| **ETL Lead**           | Killi Akshith Kumar          | Akshith17323        | ✔️   | ✔️  | ❌        | ❌             | ❌        | ❌             |
+| **Analysis Lead**      | Saumya Soni                  | Algoastronaut       | ❌    | ❌   | ✔️       | ❌             | ❌        | ✔️            |
+| **Visualization Lead** | Syed Darain Qamar            | darain24            | ❌    | ❌   | ❌        | ✔️            | ❌        | ❌             |
+| **Strategy Lead**      | B Mohith Venkata Sai Krishna | mohith0705          | ✔️   | ❌   | ❌        | ❌             | ✔️       | ❌             |
+| **PPT & Quality Lead** | Vanshika Yadav               | connectwithvanshika | ✔️   | ✔️  | ✔️       | ✔️            | ✔️       | ✔️            |
+
+
 > *For academic use only. All data used is publicly available or constructed for educational purposes.*
