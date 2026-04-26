@@ -20,3 +20,12 @@ def run_etl(input_path, output_path):
     if 'jet_fuel_usd_barrel' in df.columns and 'airline' in df.columns:
         df['fuel_price_change_pct'] = df.groupby('airline')['jet_fuel_usd_barrel'].pct_change() * 100
         df['fuel_shock_flag'] = df['fuel_price_change_pct'] > 10
+
+    # Save
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    df.to_csv(output_path, index=False)
+
+if __name__ == "__main__":
+    base = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    run_etl(os.path.join(base, 'data/processed/3_ticket_prices_and_surcharges.csv'), 
+            os.path.join(base, 'data/cleaned_dataset/cleaned_ticket_prices_with_kpis.csv'))
