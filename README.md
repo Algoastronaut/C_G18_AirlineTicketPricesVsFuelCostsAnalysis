@@ -74,6 +74,33 @@ This analysis supports:
 
 ---
 
+## Problem Statement & Objectives (Formal Scope)
+
+### Formal Problem Definition
+
+This project analyzes the relationship between global jet fuel prices and airline ticket pricing behavior to estimate the price pass-through rate and evaluate how geopolitical phases affect that relationship.
+
+### Project Scope
+
+**In Scope**
+- Monthly tracking of Brent crude and jet fuel prices
+- Analysis of passenger fares and fuel surcharges
+- Comparison across pre-pandemic, COVID-19, US-Iran tension, and Russia-Ukraine phases
+- Statistical methods including correlation and regression
+
+**Out of Scope**
+- Real-time prediction of individual ticket prices
+- Exhaustive coverage of every low-cost/regional airline route
+- Airline-specific hedging portfolio attribution
+
+### Success Criteria
+
+- **Analytical:** Reliable correlation and pass-through estimates between fuel and fares
+- **Engineering:** Automated Python ETL pipeline producing clean integrated data
+- **Application:** Tableau dashboard for decision-ready visual exploration
+
+---
+
 ## Project Structure
 
 ```text
