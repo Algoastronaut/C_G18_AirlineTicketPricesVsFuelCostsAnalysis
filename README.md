@@ -27,6 +27,18 @@ Airline ticket pricing is influenced by fuel costs, but primarily driven by dema
 
 ---
 
+## Executive Summary
+
+### Problem
+
+Jet fuel is one of the largest operating expenses for airlines (around 30% of total costs). Fuel volatility from macroeconomic shocks and geopolitical conflicts creates pressure on margins, forcing airlines to balance cost absorption with fare and surcharge pass-through.
+
+### Approach
+
+A data-driven workflow integrated six datasets (EIA, IATA, DOT, and related public sources). After Python-based cleaning and transformation, correlation/regression analysis and hypothesis testing were used to evaluate pass-through behavior. Findings were delivered through an interactive Tableau dashboard across phases such as pre-pandemic, COVID-19, and conflict periods.
+
+---
+
 ## Objectives
 
 | # | Objective |
