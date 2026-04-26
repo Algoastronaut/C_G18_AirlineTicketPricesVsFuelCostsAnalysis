@@ -43,13 +43,12 @@ Airline ticket pricing is influenced by fuel costs, but primarily driven by dema
 ├── requirements.txt
 ├── data/
 │   ├── raw/                 # Raw unprocessed datasets
-│   └── processed/           # Final merged datasets for Tableau
+│   └── processed/           # Final merged dataset for Tableau
 ├── docs/
 │   └── data_dictionary.md   # Data dictionaries for datasets
 ├── notebooks/
 │   ├── 01_extraction.ipynb
 │   ├── 02_cleaning.ipynb
-│   ├── merge_datasets.ipynb
 │   ├── 03_eda.ipynb
 │   ├── 04_statistical_analysis.ipynb
 │   └── 05_final_load_prep.ipynb
@@ -76,21 +75,41 @@ The project uses **six raw CSV datasets**, assembled from publicly available air
 | `route_cost_impact.csv` | ~504 KB | ~7,500 | 11 | Route-level operational cost breakdowns including fuel cost per ASK |
 | `conflict_oil_events.csv` | ~7.4 KB | ~150 | 9 | Timeline of geopolitical events tagged with conflict phase and oil impact level |
 
-### Processed Datasets (`data/processed/`)
+### Processed Dataset (`data/processed/`)
 
-After the ETL pipeline runs, the six raw files are merged into **three logically paired processed datasets**:
+After the ETL pipeline runs, the final processed output is created by merging **two datasets**:
 
 | File | Est. Rows | Est. Columns | Merge Logic |
 |------|-----------|--------------|-------------|
-| `1_macro_oil_and_events.csv` | ~200 | ~15 | `oil_jet_fuel_prices` ⟕ `conflict_oil_events` on `month` + `conflict_phase` |
-| `2_route_impacts_and_financials.csv` | ~7,500 | ~20 | `route_cost_impact` ⟕ `airline_financial_impact` on `month` + `conflict_phase` + `airline` |
 | `3_ticket_prices_and_surcharges.csv` | ~18,000 | ~25 | `airline_ticket_prices` ⟕ `fuel_surcharges` on `month` + `conflict_phase` + `airline` + `iata_code` + `country` + `region` + `km_range` |
 
 ---
 
-## ETL Pipeline
+## Data Cleaning & ETL Pipeline
 
-The ETL pipeline transforms raw multi-source data into clean, analysis-ready paired datasets. It is implemented across the Jupyter notebooks (01–05) and consolidated in `scripts/etl_pipeline.py`.
+The ETL pipeline transforms raw multi-source data into a clean, analysis-ready dataset. It is implemented across the Jupyter notebooks (01–05) and consolidated in `scripts/etl_pipeline.py`.
+
+### Overview of Data Pipeline
+
+Initially, the project includes six raw datasets:
+
+- `airline_ticket_prices.csv`
+- `fuel_surcharges.csv`
+- `oil_jet_fuel_prices.csv`
+- `airline_financial_impact.csv`
+- `route_cost_impact.csv`
+- `conflict_oil_events.csv`
+
+During ETL, the primary integration for downstream analysis is the merge of:
+
+- `airline_ticket_prices`
+- `fuel_surcharges`
+
+to create:
+
+- `3_ticket_prices_and_surcharges.csv`
+
+This final dataset is the main dataset used for EDA, statistical analysis, and Tableau visualization.
 
 ### Extraction
 
@@ -104,23 +123,63 @@ The ETL pipeline transforms raw multi-source data into clean, analysis-ready pai
 
 All datasets are stored in `data/raw/` as flat CSVs. A `month` field (`YYYY-MM`) and `conflict_phase` label are the primary join keys across datasets.
 
-### Transformation
+### Data Cleaning Steps
+
+All cleaning operations are performed in Python before generating the final dataset.
+
+1. **Column standardization**
+   - Converted column names to lowercase.
+   - Replaced spaces with underscores.
+   - Removed duplicate/redundant columns from merges.
+2. **Data type conversion**
+   - Converted `month` to `datetime`.
+   - Standardized key categorical columns such as `airline`, `region`, `route_class`, and `conflict_phase`.
+   - Ensured numerical columns use numeric types.
+3. **Missing values**
+   - Applied forward-fill for time-based fields (for example, YoY measures).
+   - Used `0` replacement where appropriate.
+   - Filled categorical defaults (for example, `surcharge_band = "No Surcharge"` where needed).
+4. **Invalid values**
+   - Replaced infinite values in ratio/percentage columns with nulls, then imputed/treated.
+5. **Outlier handling**
+   - Used IQR-based detection.
+   - Kept outliers and flagged them via `is_extreme_fare` to preserve real-world shocks (COVID-19 and conflict-driven spikes).
+
+### Feature Engineering
 
 | Step | Description |
 |------|-------------|
-| Distance band engineering | `avg_route_km` binned into `km_range` (≤1500 / 1501–4500 / 4501–9000 / >9000 km) |
-| Event date normalisation | `event_date` (`YYYY-MM-DD`) truncated to `YYYY-MM` via `str[:7]` |
-| Duplicate column removal | `df.loc[:, ~df.columns.duplicated()]` applied post-merge |
-| Missing value handling | Forward-fill (quarterly→monthly), median imputation (numeric), mode imputation (categorical), row drop (core fields null) |
-| Outlier treatment | IQR detection → Winsorise at 1st/99th percentile → flag with `is_outlier` |
-| Type conversion | `month` → `datetime64[ns]`; monetary fields → `float64`; flags → `bool` |
-| Feature engineering | `year`, `month_num`, `price_change_pct`, `real_ticket_price_usd`, `fuel_price_lag_1m/2m`, `surcharge_coverage_ratio` |
+| Time-based | `year`, `month_num`, `quarter` |
+| Pricing ratios | `fuel_surcharge_ratio`, `taxes_ratio`, `base_ratio`, `surcharge_as_pct_base` |
+| Fuel relationship metrics | `crude_jet_ratio` |
+| Efficiency metric | `fare_per_km` |
+| Change indicators | `yoy_price_change_pct`, `yoy_surcharge_change_pct` |
+| Route segmentation | `avg_route_km` binned into `km_range` |
 
 ### Loading
 
-- Processed datasets written to `data/processed/` as clean CSVs.
-- Tableau dashboard consumes all three processed CSVs directly.
+- Processed output written to `data/processed/` as a clean CSV.
+- Tableau dashboard consumes the processed CSV directly.
 - No database backend — all storage is flat-file CSV for reproducibility.
+
+### Final Processed Dataset (`data/processed/`)
+
+The final cleaned dataset is:
+
+- `3_ticket_prices_and_surcharges.csv`
+
+Representative column groups include:
+
+- **Time:** `month`, `year`, `month_num`, `quarter`
+- **Airline details:** `airline`, `iata_code`, `country`, `region`, `airline_type`
+- **Route info:** `route_class`, `avg_route_km`, `km_range`
+- **Pricing:** `base_fare_usd`, `fuel_surcharge_usd`, `taxes_fees_usd`, `total_fare_usd`
+- **Fuel/cost indicators:** `brent_crude_usd`, `jet_fuel_usd_barrel`, `fuel_cost_pct_opex`
+- **Performance:** `load_factor_pct`
+- **Change indicators:** `yoy_price_change_pct`, `yoy_surcharge_change_pct`
+- **Derived features:** `surcharge_as_pct_base`, `fuel_surcharge_ratio`, `taxes_ratio`, `base_ratio`, `crude_jet_ratio`, `fare_per_km`
+- **Categorical fields:** `conflict_phase`, `surcharge_band`
+- **Outlier flag:** `is_extreme_fare`
 
 ---
 
@@ -130,10 +189,9 @@ All datasets are stored in `data/raw/` as flat CSVs. A `month` field (`YYYY-MM`)
 |----------|---------|
 | `01_extraction.ipynb` | Loads all six raw CSVs, validates schemas, checks column names/dtypes, and prints shape/null summaries. Acts as a data audit and ingestion checkpoint. |
 | `02_cleaning.ipynb` | Handles missing values, removes duplicates, standardises column names (snake_case), corrects data types, and applies outlier detection + Winsorisation. |
-| `03_eda.ipynb` | Performs Exploratory Data Analysis on the three processed pairs. Includes distribution plots, correlation heatmaps, time-series trend charts, and carrier/region breakdowns. |
+| `03_eda.ipynb` | Performs Exploratory Data Analysis on the processed merged dataset. Includes distribution plots, correlation heatmaps, time-series trend charts, and carrier/region breakdowns. |
 | `04_statistical_analysis.ipynb` | Applies formal statistical tests: Pearson/Spearman correlation, OLS regression (price pass-through coefficient), Granger causality tests, and ANOVA for cross-airline surcharge differences. |
 | `05_final_load_prep.ipynb` | Final data preparation for Tableau ingestion. Applies remaining transformations, exports clean CSVs, and validates output schemas. |
-| `merge_datasets.ipynb` | Executes all three LEFT JOIN merge operations to produce the three processed datasets from the six raw inputs. Core data integration step. |
 
 ---
 
@@ -149,9 +207,7 @@ RAW DATA SOURCES  (EIA / IATA / DOT DB1B / ICAO / ACLED)
 02_cleaning.ipynb       → Impute nulls, remove duplicates, standardise dtypes, treat outliers
         │
         ▼
-merge_datasets.ipynb    → Pair 1: Oil + Events
-                          Pair 2: Routes + Financials
-                          Pair 3: Tickets + Surcharges  →  data/processed/
+05_final_load_prep.ipynb → Merge Tickets + Surcharges  →  data/processed/
         │
         ▼
 03_eda.ipynb            → Distributions, correlations, time-series trends, carrier analysis
@@ -160,7 +216,7 @@ merge_datasets.ipynb    → Pair 1: Oil + Events
 04_statistical_analysis.ipynb  → Correlation, OLS Regression, Granger Causality, ANOVA
         │
         ▼
-05_final_load_prep.ipynb  → Final transforms, export clean CSVs, Tableau-ready
+05_final_load_prep.ipynb  → Final transforms, export clean CSV, Tableau-ready
         │
         ▼
 Tableau Dashboard       → Interactive visualisations, stakeholder-facing insights
@@ -263,8 +319,8 @@ jupyter lab
 Run notebooks in this order from the `notebooks/` directory:
 
 ```
-01_extraction.ipynb  →  02_cleaning.ipynb  →  merge_datasets.ipynb
-→  03_eda.ipynb  →  04_statistical_analysis.ipynb  →  05_final_load_prep.ipynb
+01_extraction.ipynb  →  02_cleaning.ipynb  →  05_final_load_prep.ipynb
+→  03_eda.ipynb  →  04_statistical_analysis.ipynb
 ```
 
 Connect Tableau to processed CSVs in `data/processed/` for the dashboard.
