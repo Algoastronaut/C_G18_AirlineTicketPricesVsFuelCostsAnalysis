@@ -52,6 +52,28 @@ A data-driven workflow integrated six datasets (EIA, IATA, DOT, and related publ
 
 ---
 
+## Sector & Business Context
+
+### Industry Overview
+
+The aviation industry runs on thin margins and is highly exposed to external disruptions. COVID-19 demand shocks, recovery surges, supply-side constraints, and conflict-led fuel volatility (including Russia-Ukraine and US-Iran tensions) have made cost and pricing decisions more complex.
+
+### Decision Makers
+
+This analysis supports:
+
+- C-suite leaders (CEO/CFO) for margin and risk decisions
+- Revenue management teams for fare optimization
+- Pricing strategy teams for competitive positioning
+
+### Business Value
+
+- Enables pricing optimization without unnecessary demand loss
+- Supports fuel-risk management and hedging strategy decisions
+- Improves transparency on surcharge behavior and fare dynamics
+
+---
+
 ## Project Structure
 
 ```text
