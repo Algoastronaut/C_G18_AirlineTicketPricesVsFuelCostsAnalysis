@@ -349,7 +349,6 @@ The dashboard provides visual exploration of ticket prices, fuel cost impact, an
 ## Future Improvements
 
 - **Real-time pipeline:** Integrate live EIA and IATA API feeds using Apache Airflow for monthly auto-updates.
-- **ML forecasting:** Build a time-series model (Prophet, SARIMA, or LSTM) to predict 3–6 month forward ticket prices.
 - **Hedging effectiveness analysis:** Extend financial dataset to include airline-specific hedging ratios.
 - **Consumer welfare analysis:** Incorporate RPK data to quantify total consumer welfare impact of fuel-driven fare increases.
 - **NLP event processing:** Replace manual conflict tagging with an LLM-based news classification pipeline.
