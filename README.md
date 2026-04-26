@@ -326,10 +326,10 @@ The dashboard provides visual exploration of ticket prices, fuel cost impact, an
 
 ## Business Recommendations
 
-1. **Dynamic Pricing Integration:** Airlines should continue to refine dynamic pricing models that weight route demand, geopolitical risk, and competitor behavior heavily, rather than relying strictly on static fuel cost pass-throughs.
-2. **Proactive Fuel Hedging:** Given the lack of a full ticket price pass-through, robust fuel hedging strategies remain critical during periods of high geopolitical volatility to protect operating margins.
-3. **Surcharge Communication:** Since surcharges don't fully cover fuel cost spikes, airlines should communicate these fees transparently to consumers while optimizing them based on route distance and competitive landscape.
-4. **Agile Route Management:** Monitor geopolitical conflict phases and quickly reallocate capacity from highly fuel-sensitive or disruption-prone routes to more stable regions to minimize margin erosion.
+1. **Dynamic Pricing Strategy:** Prioritize demand, competition, and geopolitical risk signals rather than relying only on fuel cost pass-through.
+2. **Fuel Hedging Discipline:** Maintain robust hedging as airlines cannot fully transfer fuel shocks to passengers without affecting demand.
+3. **Demand-First Optimization:** Use load factor and seasonality as primary fare-setting signals over purely cost-based pricing.
+4. **Scenario Planning:** Embed macroeconomic and geopolitical scenarios into pricing playbooks to react faster to sudden market shocks.
 
 ---
 
