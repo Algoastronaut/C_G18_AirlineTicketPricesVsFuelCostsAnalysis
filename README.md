@@ -3,6 +3,10 @@
 > **Course:** Data & Visual Analytics (DVA) — Capstone Project
 > **Team:** Group 18
 > **Academic Year:** 2025–2026
+> **Sector:** Aviation & Travel Industry
+> **Institute:** Newton School of Technology
+> **Faculty Mentor:** Prof. Archit Raj
+> **Submission Date:** TBD
 
 ---
 
