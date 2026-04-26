@@ -245,8 +245,10 @@ Tableau Dashboard       → Interactive visualisations, stakeholder-facing insig
 
 ## Tableau Dashboard
 
+GitHub Repository URL: [View on GitHub](https://github.com/connectwithvanshika/C_G18_AirlineTicketPricesVsFuelCostsAnalysis.git)
+
 Explore the interactive visualizations here:
-🔗 **[View Tableau Public Dashboard](https://public.tableau.com/app/profile/YOUR_PROFILE_LINK)** 
+🔗 **[View Tableau Public Dashboard](https://public.tableau.com/app/profile/YOUR_PROFILE_LINK)**
 
 The dashboard provides visual exploration of ticket prices, fuel cost impact, and geopolitical events over time.
 
