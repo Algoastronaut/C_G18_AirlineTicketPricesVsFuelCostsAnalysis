@@ -1,3 +1,325 @@
+# C_G18 — Airline Ticket Prices vs Fuel Costs Analysis
+
+**Course:** Data & Visual Analytics (DVA) — Capstone Project  
+**Team:** Group 18  
+**Academic Year:** 2025–2026  
+**Sector:** Aviation & Travel Industry  
+**Institute:** Newton School of Technology  
+**Faculty Mentor:** Prof. Archit Raj
+
+---
+
+# Problem Statement
+
+Jet fuel is one of the largest operating expenses for airlines, accounting for approximately 20–30% of total costs. Fluctuations in crude oil prices—driven by geopolitical conflicts, macroeconomic shocks, and supply disruptions—create significant pressure on airline profitability.
+
+Airlines must decide whether to absorb increased costs or pass them on to customers through ticket prices and fuel surcharges. This project analyzes how fuel price changes influence airline ticket pricing and evaluates whether cost increases are directly transferred to passengers.
+
+---
+
+# Executive Summary
+
+### Problem
+
+Airlines operate under volatile cost structures where fuel price fluctuations significantly impact margins. The challenge is to understand whether these cost changes directly affect ticket prices or if other factors dominate pricing decisions.
+
+### Approach
+
+A data-driven pipeline was built using six datasets from sources such as EIA, IATA, and DOT. After cleaning and transforming the data using Python, statistical analysis including correlation, regression, hypothesis testing, forecasting, and clustering was applied. Insights were visualized through an interactive Tableau dashboard.
+
+### Key Insight
+
+Airline ticket pricing is influenced by fuel costs but primarily driven by demand, route characteristics, and geopolitical events rather than direct cost pass-through.
+
+---
+
+# Objectives
+
+1. Quantify the pass-through effect of fuel prices on ticket fares
+2. Analyze fuel surcharge behavior relative to fuel price changes
+3. Identify pricing sensitivity across airlines, regions, and routes
+4. Evaluate the impact of geopolitical conflict phases on pricing
+5. Build a Tableau dashboard for decision-making
+
+---
+
+# Business Value
+
+- Enables demand-driven pricing optimization
+- Supports fuel risk management and hedging strategies
+- Improves transparency in surcharge application
+- Helps airlines respond to global disruptions
+
+---
+
+# Project Structure
+
+```text
+├── README.md
+├── requirements.txt
+├── data/
+│   ├── raw/
+│   └── processed/
+├── docs/
+│   └── data_dictionary.md
+├── notebooks/
+│   ├── 01_extraction.ipynb
+│   ├── 02_cleaning.ipynb
+│   ├── 03_eda.ipynb
+│   ├── 04_statistical_analysis.ipynb
+│   └── 05_final_load_prep.ipynb
+├── scripts/
+│   └── etl_pipeline.py
+├── tableau/
+└── reports/
+```
+
+---
+
+# Data Pipeline & ETL
+
+### Data Sources
+
+- Airline ticket prices
+- Fuel surcharges
+- Jet fuel and crude oil prices
+- Airline financial data
+- Route-level cost data
+- Geopolitical conflict events
+
+### Key Steps
+
+- Column standardization
+- Data type conversion
+- Missing value handling
+- Outlier detection (flagged using `is_extreme_fare`)
+- Feature engineering
+
+### Final Dataset
+
+`3_ticket_prices_and_surcharges.csv`
+
+Includes:
+
+- Pricing: base fare, surcharge, taxes, total fare
+- Fuel metrics: jet fuel, crude oil, fuel cost %
+- Demand: load factor
+- Derived features: ratios, YoY change, fare per km
+- Segmentation: conflict phase, route class, airline type
+
+---
+
+# Notebook Workflow
+
+1. `01_extraction.ipynb` → Load and validate raw datasets
+2. `02_cleaning.ipynb` → Clean, transform, and prepare data
+3. `03_eda.ipynb` → Perform exploratory analysis
+4. `04_statistical_analysis.ipynb` →
+
+   - Correlation analysis
+   - Regression (OLS)
+   - Hypothesis testing
+   - Forecasting (ARIMA)
+   - Clustering (K-Means)
+
+5. `05_final_load_prep.ipynb` → Export final dataset for Tableau
+
+---
+
+# Statistical Analysis
+
+### Regression (Root Cause)
+
+- Positive relationship between fuel price and ticket fare
+- Low R² (~0.08) → fuel price alone is not a strong predictor
+
+### Correlation
+
+- Strong correlation between fuel price and fuel cost %
+- Weak correlation between fuel price and ticket fare
+
+### Hypothesis Testing
+
+- Significant difference in ticket prices across conflict phases
+
+### Forecasting (ARIMA)
+
+- Predicts stable or slightly increasing ticket prices
+- Does not capture sudden external shocks
+
+### Clustering (K-Means)
+
+- Identified 3 pricing regimes:
+  - Low-price cluster
+  - Medium-price cluster
+  - High-price cluster
+
+---
+
+# Tableau Dashboard
+
+### Dashboard Link
+
+[https://public.tableau.com/app/profile/syed.darain.qamar7769/viz/AirlinePricesAnalysis/ExecutiveOverview](https://public.tableau.com/app/profile/syed.darain.qamar7769/viz/AirlinePricesAnalysis/ExecutiveOverview)
+
+---
+
+## Dashboard Objective
+
+To enable stakeholders to analyze pricing behavior, fuel cost impact, and external disruptions.
+
+---
+
+## Views
+
+### Executive View
+
+- Avg Ticket Price
+- YoY Change
+- Load Factor
+- Extreme Fare %
+- Trend charts
+
+### Operational View
+
+- Fare components
+- Monthly trends
+- Route class pricing
+
+### Fuel Analysis View
+
+- Fuel vs fare relationship
+- Fuel surcharge trends
+- Cost distribution
+
+### Conflict Analysis View
+
+- Fare by phase
+- Regional impact
+- Volatility analysis
+
+---
+
+## Filters
+
+- Conflict Phase
+- Airline Type
+- Route Class
+- Year
+
+---
+
+# Key Insights
+
+1. Fuel prices significantly impact costs but not proportionally ticket prices
+2. Pricing is driven more by demand and external events than fuel cost
+3. Ticket prices spike during conflict and recovery phases
+4. Fuel surcharges are used strategically, not strictly cost-based
+5. Long-haul routes are more sensitive to fuel price changes
+6. Extreme fare spikes occur during high-risk periods
+7. Regional pricing varies significantly
+8. Load factor influences pricing but is not dominant
+9. Forecasting shows stable trends but misses shocks
+10. Clustering reveals distinct pricing regimes
+
+---
+
+# Business Recommendations
+
+### 1. Dynamic Pricing Strategy
+
+Use demand, seasonality, and competition instead of relying on fuel cost  
+**Impact:** Revenue increase (5–10%)
+
+### 2. Fuel Risk Management
+
+Adopt hedging strategies  
+**Impact:** Cost volatility reduction (10–15%)
+
+### 3. Route-Level Optimization
+
+Different pricing for long-haul vs short-haul  
+**Impact:** Profitability increase (8–12%)
+
+### 4. Crisis-Based Pricing
+
+Develop rapid response pricing strategies  
+**Impact:** Revenue boost during disruptions (5–8%)
+
+### 5. Demand-Capacity Alignment
+
+Optimize load factor  
+**Impact:** Efficiency improvement (3–5%)
+
+---
+
+# Challenges
+
+- Multi-source data inconsistencies
+- Different data granularities
+- Missing surcharge data
+- Conflict event alignment
+- Outlier handling
+
+---
+
+# Future Improvements
+
+- Advanced forecasting models (SARIMA, Prophet, LSTM)
+- Real-time data pipeline
+- Additional demand and competition data
+- Airline-specific analysis
+- Machine learning-based pricing models
+
+---
+
+# How to Run
+
+```bash
+git clone https://github.com/connectwithvanshika/C_G18_AirlineTicketPricesVsFuelCostsAnalysis.git
+cd C_G18_AirlineTicketPricesVsFuelCostsAnalysis
+
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+
+jupyter lab
+```
+
+Run notebooks in order:
+
+```text
+01 → 02 → 03 → 04 → 05
+```
+
+---
+
+# Team
+
+| Role               | Name                         | GitHub              |
+| ------------------ | ---------------------------- | ------------------- |
+| Project Lead       | Vanshika Yadav               | connectwithvanshika |
+| Data Lead          | Shrijan Sanidhya             | ShrijanSanidhya     |
+| ETL Lead           | Killi Akshith Kumar          | Akshith17323        |
+| Analysis Lead      | Saumya Soni                  | Algoastronaut       |
+| Visualization Lead | Syed Darain Qamar            | darain24            |
+| Strategy Lead      | B Mohith Venkata Sai Krishna | mohith0705          |
+| PPT & Quality Lead | Vanshika Yadav               | connectwithvanshika |
+
+---
+
+# Contribution Matrix
+
+| Team Member                  | Dataset & Sourcing | ETL & Cleaning | EDA & Analysis | Statistical Analysis | Tableau Dashboard | Report Writing | PPT & Viva |
+| ---------------------------- | ------------------ | -------------- | -------------- | -------------------- | ----------------- | -------------- | ---------- |
+| Vanshika Yadav               | –                  | –              | –              | ✓                    | –                 | ✓              | ✓          |
+| Shrijan Sanidhya             | ✓                  | ✓              | –              | –                    | –                 | ✓              | –          |
+| Killi Akshith Kumar          | ✓                  | ✓              | ✓              | –                    | –                 | –              | –          |
+| Saumya Soni                  | –                  | –              | –              | ✓                    | –                 | ✓              | ✓          |
+| Syed Darain Qamar            | ✓                  | –              | –              | –                    | ✓                 | –              | ✓          |
+| B Mohith Venkata Sai Krishna | ✓                  | ✓              | ✓              | –                    | –                 | –              | –          |
+
+---
 # C\_G18 — Airline Ticket Prices vs Fuel Costs Analysis
 
 > **Course:** Data & Visual Analytics (DVA) — Capstone Project
